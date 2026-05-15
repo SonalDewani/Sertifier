@@ -6,9 +6,60 @@
   <component name="ChangeListManager">
     <list default="true" id="dc48fe1e-9c25-40b7-bc0e-2e0a68c302b4" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/User/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/User/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Certified/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/Certified/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/User/templates/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/User/templates/base.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/certificates/utils.py" beforeDir="false" afterPath="$PROJECT_DIR$/certificates/utils.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/db.sqlite3" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/media/certificates/certificate_17.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/media/certificates/certificate_19.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/media/certificates/certificate_27.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/media/certificates/certificate_29.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/media/id_cards/id_card_10.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/media/id_cards/id_card_10.pdf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/media/id_cards/id_card_11.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/media/id_cards/id_card_11.pdf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/media/id_cards/id_card_12.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/media/id_cards/id_card_12.pdf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/media/id_cards/id_card_13.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/media/id_cards/id_card_13.pdf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/media/id_cards/id_card_5.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/media/id_cards/id_card_5.pdf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/media/id_cards/id_card_6.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/media/id_cards/id_card_6.pdf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/media/id_cards/id_card_7.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/media/id_cards/id_card_7.pdf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/media/id_cards/id_card_8.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/media/id_cards/id_card_8.pdf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/media/id_cards/id_card_9.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/media/id_cards/id_card_9.pdf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/media/qr_10.png" beforeDir="false" afterPath="$PROJECT_DIR$/media/qrcodes/qr_10.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/media/qr_11.png" beforeDir="false" afterPath="$PROJECT_DIR$/media/qrcodes/qr_11.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/media/qr_12.png" beforeDir="false" afterPath="$PROJECT_DIR$/media/qrcodes/qr_12.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/media/qr_13.png" beforeDir="false" afterPath="$PROJECT_DIR$/media/qrcodes/qr_13.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/media/qr_14.png" beforeDir="false" afterPath="$PROJECT_DIR$/media/qrcodes/qr_14.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/media/qr_15.png" beforeDir="false" afterPath="$PROJECT_DIR$/media/qrcodes/qr_15.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/media/qr_16.png" beforeDir="false" afterPath="$PROJECT_DIR$/media/qrcodes/qr_16.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/media/qr_17.png" beforeDir="false" afterPath="$PROJECT_DIR$/media/qrcodes/qr_17.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/media/qr_18.png" beforeDir="false" afterPath="$PROJECT_DIR$/media/qrcodes/qr_18.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/media/qr_19.png" beforeDir="false" afterPath="$PROJECT_DIR$/media/qrcodes/qr_19.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/media/qr_20.png" beforeDir="false" afterPath="$PROJECT_DIR$/media/qrcodes/qr_20.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/media/qr_21.png" beforeDir="false" afterPath="$PROJECT_DIR$/media/qrcodes/qr_21.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/media/qr_22.png" beforeDir="false" afterPath="$PROJECT_DIR$/media/qrcodes/qr_22.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/media/qr_23.png" beforeDir="false" afterPath="$PROJECT_DIR$/media/qrcodes/qr_23.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/media/qr_24.png" beforeDir="false" afterPath="$PROJECT_DIR$/media/qrcodes/qr_24.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/media/qr_25.png" beforeDir="false" afterPath="$PROJECT_DIR$/media/qrcodes/qr_25.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/media/qr_26.png" beforeDir="false" afterPath="$PROJECT_DIR$/media/qrcodes/qr_26.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/media/qr_27.png" beforeDir="false" afterPath="$PROJECT_DIR$/media/qrcodes/qr_27.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/media/qr_28.png" beforeDir="false" afterPath="$PROJECT_DIR$/media/qrcodes/qr_28.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/media/qr_29.png" beforeDir="false" afterPath="$PROJECT_DIR$/media/qrcodes/qr_29.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/media/qr_30.png" beforeDir="false" afterPath="$PROJECT_DIR$/media/qrcodes/qr_30.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/media/qr_31.png" beforeDir="false" afterPath="$PROJECT_DIR$/media/qrcodes/qr_31.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/media/qr_32.png" beforeDir="false" afterPath="$PROJECT_DIR$/media/qrcodes/qr_32.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/media/qr_5.png" beforeDir="false" afterPath="$PROJECT_DIR$/media/qrcodes/qr_5.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/media/qr_6.png" beforeDir="false" afterPath="$PROJECT_DIR$/media/qrcodes/qr_6.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/media/qr_7.png" beforeDir="false" afterPath="$PROJECT_DIR$/media/qrcodes/qr_7.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/media/qr_8.png" beforeDir="false" afterPath="$PROJECT_DIR$/media/qrcodes/qr_8.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/media/qr_9.png" beforeDir="false" afterPath="$PROJECT_DIR$/media/qrcodes/qr_9.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/seminars/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/seminars/forms.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/seminars/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/seminars/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/seminars/templates/attendance_qr.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/seminars/templates/manager_seminars.html" beforeDir="false" afterPath="$PROJECT_DIR$/seminars/templates/manager_seminars.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/seminars/templates/seminar_registrations.html" beforeDir="false" afterPath="$PROJECT_DIR$/seminars/templates/seminar_registrations.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/seminars/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/seminars/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/seminars/utils/email_service.py" beforeDir="false" afterPath="$PROJECT_DIR$/seminars/utils/email_service.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/seminars/utils/id_card_generator.py" beforeDir="false" afterPath="$PROJECT_DIR$/seminars/utils/id_card_generator.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/seminars/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/seminars/views.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -47,13 +98,17 @@
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/dell/PycharmProjects/Certified/User/static/images&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/dell/PycharmProjects/Certified/media/certificate_assets&quot;,
     &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;
   }
 }</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\dell\PycharmProjects\Certified\media\certificate_assets" />
       <recent name="C:\Users\dell\PycharmProjects\Certified\User\static\images" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\dell\PycharmProjects\Certified\media\qrcodes" />
     </key>
   </component>
   <component name="SharedIndexes">

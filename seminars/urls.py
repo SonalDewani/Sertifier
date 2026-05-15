@@ -11,19 +11,14 @@ urlpatterns = [
                   path('registrations/<int:seminar_id>/', views.seminar_registrations, name='seminar_registrations'),
                   path('my-registrations/', views.my_registrations, name='my_registrations'),
                   path(
-                      'generate-attendance-qr/<int:seminar_id>/',
-                      views.generate_attendance_qr,
-                      name='generate_attendance_qr'
-                  ),
-
-                  path(
-                      'mark-attendance/<int:seminar_id>/',
-                      views.mark_attendance,
-                      name='mark_attendance'
-                  ),
-                  path(
                       'verify/idcard/<uuid:token>/',
                       views.verify_idcard,
                       name='verify_idcard'
-                  )
+                  ),
+                  path(
+                      'attendance/<uuid:token>/',
+                      views.attendance_verify,
+                      name='attendance_verify'
+                  ),
+
               ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

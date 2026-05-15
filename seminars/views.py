@@ -3,22 +3,26 @@ from datetime import timedelta
 from io import BytesIO
 
 import qrcode
+from django.core.mail import send_mail
+
 from Certified import settings
 from django.http import HttpResponse
 from django.shortcuts import render
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
-from .forms import SeminarForm
+from .forms import SeminarForm, SeminarRegistrationForm
 from User.decorators import role_required
 from .models import Seminar, SeminarRegistration
 from django.shortcuts import get_object_or_404
 from django.contrib import messages
 from django.db.models import Case, When, Value, IntegerField
-from .utils.email_service import send_id_card_email
+from .utils.email_service import send_registration_email
 from .utils.id_card_generator import generate_id_card
 from django.utils import timezone
 import random
 import string
+
+from .utils.unique_attendance_code import generate_unique_attendance_code
 
 
 # 🔹 Manager creates seminar
@@ -88,9 +92,20 @@ def user_seminars(request):
 @login_required
 @role_required(['distributor'])
 def register_seminar(request, seminar_id):
-    seminar = Seminar.objects.get(id=seminar_id)
+
+    seminar = get_object_or_404(
+        Seminar,
+        id=seminar_id
+    )
+
     user = request.user
+
+    # =====================================================
+    # REGISTRATION CLOSED
+    # =====================================================
+
     if not seminar.registration_open:
+
         messages.error(
             request,
             "Registration is closed."
@@ -101,11 +116,15 @@ def register_seminar(request, seminar_id):
             seminar_id=seminar.id
         )
 
-    # Prevent duplicate registration
+    # =====================================================
+    # ALREADY REGISTERED
+    # =====================================================
+
     if SeminarRegistration.objects.filter(
-            user=user,
-            seminar=seminar
+        user=user,
+        seminar=seminar
     ).exists():
+
         messages.warning(
             request,
             "You have already registered for this seminar."
@@ -113,24 +132,94 @@ def register_seminar(request, seminar_id):
 
         return redirect('user_seminars')
 
-    registration = SeminarRegistration.objects.create(
-        user=user,
-        seminar=seminar
+    # =====================================================
+    # POST
+    # =====================================================
+
+    if request.method == 'POST':
+
+        form = SeminarRegistrationForm(
+            request.POST
+        )
+
+        if form.is_valid():
+
+            registration = SeminarRegistration.objects.create(
+
+                user=user,
+
+                seminar=seminar,
+
+                attendee_name=form.cleaned_data[
+                    'attendee_name'
+                ],
+
+                attendee_email=form.cleaned_data[
+                    'attendee_email'
+                ],
+
+                attendee_phone=form.cleaned_data[
+                    'attendee_phone'
+                ],
+
+                attendance_code=generate_unique_attendance_code()
+            )
+
+            # =============================================
+            # GENERATE ID CARD
+            # =============================================
+
+            file_path = generate_id_card(
+                user,
+                seminar,
+                registration
+            )
+
+            registration.id_card = (
+                f"id_cards/id_card_{registration.id}.pdf"
+            )
+
+            registration.save()
+
+            # =============================================
+            # ATTENDANCE LINK
+            # =============================================
+
+            attendance_link = (
+                f"{settings.Base_Url}/seminars/"
+                f"attendance/"
+                f"{seminar.attendance_link_token}/"
+            )
+
+            # =============================================
+            # SEND EMAIL
+            # =============================================
+
+            send_registration_email(
+                registration,
+                seminar,
+                file_path
+            )
+
+            messages.success(
+                request,
+                "Registration successful."
+            )
+
+            return redirect('dashboard')
+
+    else:
+
+        form = SeminarRegistrationForm()
+
+    return render(
+        request,
+        'register_seminar.html',
+        {
+            'seminar': seminar,
+            'form': form
+        }
     )
-
-    # ✅ Generate ID Card
-    file_path = generate_id_card(user, seminar, registration)
-
-    # Save file path in model
-    registration.id_card = f"id_cards/id_card_{registration.id}.pdf"
-    registration.save()
-
-    # ✅ Send Email
-    print("Sending email...")
-    send_id_card_email(user, seminar, file_path)
-    print("Email function called")
-
-    return redirect('dashboard')
 
 
 @login_required
@@ -165,71 +254,77 @@ def generate_attendance_code(length=6):
     )
 
 
-@login_required
-@role_required(['manager', 'admin'])
-def generate_attendance_qr(request, seminar_id):
+def attendance_verify(request, token):
+    seminar = get_object_or_404(
+        Seminar,
+        attendance_link_token=token
+    )
 
-    seminar = get_object_or_404(Seminar, id=seminar_id)
+    now = timezone.now()
 
-    # If QR already exists → reuse it
-    if not seminar.attendance_code:
-        code = generate_attendance_code()
+    seminar_time = seminar.date_time
 
-        seminar.attendance_code = code
-        seminar.attendance_code_created_at = timezone.now()
-        seminar.save()
-    else:
-        code = seminar.attendance_code
+    attendance_end = (
+            seminar_time + timedelta(hours=2)
+    )
 
-    # URL inside QR
-    url = f"{settings.Base_Url}/seminars/mark-attendance/{seminar.id}/?code={code}"
+    print("NOW:", now)
+    print("SEMINAR:", seminar_time)
+    print("END:", attendance_end)
 
-    # Generate QR image
-    qr = qrcode.make(url)
+    if now < seminar_time:
 
-    buffer = BytesIO()
-    qr.save(buffer, format="PNG")
+        return HttpResponse(
+            "Attendance has not started yet ❌"
+        )
 
-    qr_base64 = base64.b64encode(buffer.getvalue()).decode()
+    if now > attendance_end:
+
+        return HttpResponse(
+            "Attendance link expired ❌"
+        )
+
+    if request.method == 'POST':
+
+        email = request.POST.get('email')
+
+        code = request.POST.get('code')
+
+        registration = SeminarRegistration.objects.filter(
+            seminar=seminar,
+            attendee_email=email,
+            attendance_code=code
+        ).first()
+
+        if not registration:
+
+            return HttpResponse(
+                "Invalid attendance details ❌"
+            )
+
+        if registration.attended:
+
+            return HttpResponse(
+                "Attendance already marked ✅"
+            )
+
+        registration.attended = True
+
+        registration.attendance_marked_at = now
+
+        registration.save()
+
+        return HttpResponse(
+            "Attendance marked successfully ✅"
+        )
 
     return render(
         request,
-        'attendance_qr.html',
+        'attendance_verify.html',
         {
-            'qr': qr_base64,
             'seminar': seminar
         }
     )
-
-
-@login_required
-def mark_attendance(request, seminar_id):
-    code = request.GET.get('code')
-
-    seminar = get_object_or_404(Seminar, id=seminar_id)
-
-    # Validate code
-    if not code or code != seminar.attendance_code:
-        return HttpResponse("Invalid QR Code ❌")
-
-    # expiry = 60 minutes
-    if not seminar.attendance_code_created_at or \
-            timezone.now() - seminar.attendance_code_created_at > timedelta(minutes=60):
-        return HttpResponse("Attendance Closed ❌")
-
-    registration = get_object_or_404(
-        SeminarRegistration,
-        user=request.user,
-        seminar=seminar
-    )
-
-    if registration.attended:
-        return HttpResponse("Already marked ✅")
-
-    registration.attended = True
-    registration.save()
-
-    return HttpResponse("Attendance marked successfully ✅")
 
 
 def verify_idcard(request, token):

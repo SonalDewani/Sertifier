@@ -9,7 +9,6 @@
         <th>Email</th>
         <th>Registered At</th>
         <th>Status</th>
-        <th>Action</th>
     </tr>
 
     {% for reg in registrations %}
@@ -23,20 +22,6 @@
         {% else %}
         ❌ Absent
         {% endif %}
-        </td>
-
-        <td>
-            {% if seminar.attendance_open %}
-                {% if not reg.attended %}
-                    <a href="{% url 'generate_attendance_qr' seminar.id %}">
-                        Generate Attendance QR
-                    </a>
-                {% else %}
-                    Already Marked
-                {% endif %}
-            {% else %}
-            Attendance Closed
-            {% endif %}
         </td>
     </tr>
     {% endfor %}

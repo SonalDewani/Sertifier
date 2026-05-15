@@ -37,7 +37,7 @@ def generate_id_card(user, seminar, registration):
     c.drawString(30, 310, "Reg ID:")
 
     c.setFont("Helvetica", 12)
-    c.drawString(120, 400, user.get_full_name())
+    c.drawString(120, 400, registration.attendee_name)
     c.drawString(120, 370, seminar.title)
     c.drawString(120, 340, str(seminar.date_time))  # adjust field name
     c.drawString(120, 310, str(registration.id))
@@ -48,7 +48,7 @@ def generate_id_card(user, seminar, registration):
     )
     qr = qrcode.make(qr_data)
 
-    qr_path = os.path.join(settings.MEDIA_ROOT, f"qr_{registration.id}.png")
+    qr_path = os.path.join(f"{settings.MEDIA_ROOT}/qrcodes", f"qr_{registration.id}.png")
     qr.save(qr_path)
 
     c.drawImage(qr_path, 100, 150, width=150, height=150)

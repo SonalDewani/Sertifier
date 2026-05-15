@@ -50,13 +50,25 @@ class Seminar(models.Model):
         default='Certificate of Participation'
     )
 
-    certificate_logo_left = models.ImageField(
+    certificate_logo_1 = models.ImageField(
         upload_to='certificate_logos/',
         blank=True,
         null=True
     )
 
-    certificate_logo_right = models.ImageField(
+    certificate_logo_2 = models.ImageField(
+        upload_to='certificate_logos/',
+        blank=True,
+        null=True
+    )
+
+    certificate_logo_3 = models.ImageField(
+        upload_to='certificate_logos/',
+        blank=True,
+        null=True
+    )
+
+    certificate_logo_4 = models.ImageField(
         upload_to='certificate_logos/',
         blank=True,
         null=True
@@ -68,15 +80,12 @@ class Seminar(models.Model):
         null=True
     )
 
-    attendance_code = models.CharField(
-        max_length=20,
+    attendance_link_token = models.UUIDField(
         blank=True,
-        null=True
-    )
-
-    attendance_code_created_at = models.DateTimeField(
-        blank=True,
-        null=True
+        unique=True,
+        editable=False,
+        null=True,
+        default=uuid.uuid4,
     )
 
     def __str__(self):
@@ -84,18 +93,73 @@ class Seminar(models.Model):
 
 
 class SeminarRegistration(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    seminar = models.ForeignKey(Seminar, on_delete=models.CASCADE, related_name='registrations')
 
-    registered_at = models.DateTimeField(auto_now_add=True)
-    id_card = models.FileField(upload_to='id_cards/', null=True, blank=True)
+    user = models.ForeignKey(
+        User,
+        on_delete=models.CASCADE
+    )
 
-    attended = models.BooleanField(default=False)
+    seminar = models.ForeignKey(
+        Seminar,
+        on_delete=models.CASCADE,
+        related_name='registrations'
+    )
+
+    # =====================================================
+    # ATTENDEE DETAILS
+    # =====================================================
+
+    attendee_name = models.CharField(
+        max_length=255
+    )
+
+    attendee_email = models.EmailField()
+
+    attendee_phone = models.CharField(
+        max_length=20
+    )
+
+    # =====================================================
+    # UNIQUE ATTENDANCE CODE
+    # =====================================================
+
+    attendance_code = models.CharField(
+        max_length=10,
+        unique=True,
+        blank=True
+    )
+
+    # =====================================================
+    # REGISTRATION
+    # =====================================================
+
+    registered_at = models.DateTimeField(
+        auto_now_add=True
+    )
+
+    id_card = models.FileField(
+        upload_to='id_cards/',
+        null=True,
+        blank=True
+    )
+
+    # =====================================================
+    # ATTENDANCE
+    # =====================================================
+
+    attended = models.BooleanField(
+        default=False
+    )
 
     attendance_marked_at = models.DateTimeField(
         null=True,
         blank=True
     )
+
+    # =====================================================
+    # VERIFICATION TOKEN
+    # =====================================================
+
     verification_token = models.UUIDField(
         default=uuid.uuid4,
         unique=True,
@@ -103,7 +167,7 @@ class SeminarRegistration(models.Model):
     )
 
     class Meta:
-        unique_together = ('user', 'seminar')  # 🚀 prevents duplicate
+        unique_together = ('user', 'seminar')
 
     def __str__(self):
         return f"{self.user} - {self.seminar}"
